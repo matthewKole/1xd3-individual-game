@@ -1,0 +1,87 @@
+:root{
+    --backgroundColour: #0F52BA;
+    --tileColour: #0096FF;
+    --activeTileColour: #50C878;
+    --gameHeaderColour: #FFFFFF;
+    --wrongTileColour: seagreen;
+
+    --grid-size: 3;
+}
+
+html{
+    font-size: 62.5%;
+}
+
+body{
+    font-size: 1.6rem;
+    font-family: 'Funnel Sans', system-ui, -apple-system, sans-serif;
+    padding: 0;
+    margin: 0;
+
+    background-color: var(--backgroundColour);
+
+    min-height: 100vh;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.game{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.gameHeader{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.gameHeader p {
+    margin: 1rem;
+    color: var(--gameHeaderColour);
+    font-weight: 400;
+    font-size: 2.5rem;
+}
+
+#gridContainer{
+    display: grid;
+    grid-template-columns: repeat(var(--grid-size, 3), 1fr);
+    grid-template-rows: repeat(var(--grid-size, 3), 1fr);
+    gap: 1rem;
+    width: 90vw;
+    max-width: 400px;
+}
+
+.tile{
+    aspect-ratio: 1;
+    width: 100%;
+    background-color: var(--tileColour);
+    border: none;
+    border-radius: 10%;
+}
+
+.gameHidden{
+
+}
+
+.resultsHidden{
+    display: none;
+}
+
+.animationHidden{
+    display: none;
+}
+
+.active{
+    background-color: var(--activeTileColour);
+}
+
+.wrongTile{
+    background-color: var(--wrongTileColour);
+}
