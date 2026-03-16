@@ -1,3 +1,9 @@
+<!--
+    Your Name
+    Date Created: January 1, 2026
+    Visual Memory Game — main HTML document.
+    Defines the splash screen, game screen, help modal, and results screen.
+-->
 <!doctype html>
 <html lang="en">
   <head>
@@ -7,8 +13,8 @@
 
     <link rel="stylesheet" href="css/styles.css" />
 
-    <script src="js/animation.js" defer></script>
     <script src="js/game.js" defer></script>
+    <script src="js/animation.js" defer></script>
     <script src="js/app.js" defer></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,24 +27,62 @@
   <body>
     <!-- Splash Screen -->
     <div id="splashScreen" class="animationHidden">
-      <canvas id="introCanvas"> </canvas>
+      <!-- Canvas plays first, then fades out -->
+      <canvas id="introCanvas"></canvas>
+      <!-- Title + button fade in after canvas fades out -->
+      <div id="splashStartContent">
+        <h1>Visual Memory</h1>
+        <p>Click below to test how good your memory is. Good luck!</p>
+        <button type="button" id="startBtn">Start</button>
+      </div>
     </div>
 
     <!-- Game Screen -->
-    <div id="gameScreen" class="game gameHidden">
+    <div id="game" class="gameHidden">
       <div class="gameHeader">
-        <p>Level: 1</p>
-        <p>Lives: 3</p>
+        <p>Level: <span id="levelDisplay">1</span></p>
+        <p>Lives: <span id="livesDisplay">3</span></p>
+        <button type="button" id="helpBtn" aria-label="Help">Help</button>
       </div>
       <div id="gridContainer"></div>
     </div>
 
+    <!-- Help Modal -->
+    <div
+      id="helpModal"
+      class="helpModalHidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="helpTitle"
+    >
+      <div class="helpModalContent">
+        <h2 id="helpTitle">So you needed help huh... here you go</h2>
+        <div class="helpModalBody">
+          <p>
+            Every level, a number of tiles will flash blue. Memorize them, and
+            pick them again after the tiles are reset!
+          </p>
+          <p>
+            Levels get progressively more difficult, to challenge your skills.
+          </p>
+          <p>
+            If you miss a tile on a level, you lose one life. The pattern will
+            then be shown again for you to try. You have three lives.
+          </p>
+          <p>Make it as far as you can!</p>
+        </div>
+        <button type="button" id="helpCloseBtn">Close</button>
+      </div>
+    </div>
+
     <!-- Results Screen -->
     <div id="resultsScreen" class="resultsHidden">
-      <img src="" alt="" />
       <h1>Visual Memory Test</h1>
-      <p>Level 1</p>
-      <button id="tryAgainBtn">Try Again</button>
+      <p>Level reached: <span id="levelReached">0</span></p>
+      <p>Best score: <span id="bestScore">0</span></p>
+      <h2>Recent games</h2>
+      <ul id="gameHistoryList"></ul>
+      <button type="button" id="tryAgainBtn">Try Again</button>
     </div>
   </body>
 </html>

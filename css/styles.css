@@ -1,39 +1,51 @@
-:root{
+/*
+    Your Name
+    Date Created: January 1, 2026
+    Stylesheet for the Visual Memory Game.
+    Covers layout and theming for the splash screen, game screen,
+    help modal, and results screen. Designed for screens 480px wide or less.
+*/
+
+:root {
     --backgroundColour: #0F52BA;
     --tileColour: #0096FF;
     --activeTileColour: #50C878;
     --gameHeaderColour: #FFFFFF;
-    --wrongTileColour: seagreen;
+    --wrongTileColour: #1a4a1a;
+    --continueScreenColour: #ff474d;
 
     --grid-size: 3;
 }
 
-html{
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
     font-size: 62.5%;
 }
 
-body{
+body {
     font-size: 1.6rem;
     font-family: 'Funnel Sans', system-ui, -apple-system, sans-serif;
     padding: 0;
     margin: 0;
-
     background-color: var(--backgroundColour);
-
     min-height: 100vh;
-
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-.game{
+#game {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: var(--backgroundColour);
+    min-height: 100vh;
 }
 
-.gameHeader{
+.gameHeader {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -49,7 +61,19 @@ body{
     font-size: 2.5rem;
 }
 
-#gridContainer{
+#helpBtn {
+    margin: 1rem;
+    padding: 0.5rem 1.5rem;
+    font-size: 1.8rem;
+    font-family: inherit;
+    background-color: var(--tileColour);
+    color: var(--gameHeaderColour);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+#gridContainer {
     display: grid;
     grid-template-columns: repeat(var(--grid-size, 3), 1fr);
     grid-template-rows: repeat(var(--grid-size, 3), 1fr);
@@ -58,30 +82,170 @@ body{
     max-width: 400px;
 }
 
-.tile{
+.tile {
     aspect-ratio: 1;
     width: 100%;
     background-color: var(--tileColour);
     border: none;
     border-radius: 10%;
+    cursor: pointer;
 }
 
-.gameHidden{
-
-}
-
-.resultsHidden{
+#game.gameHidden,
+#resultsScreen.resultsHidden,
+#splashScreen.animationHidden,
+#helpModal.helpModalHidden {
     display: none;
 }
 
-.animationHidden{
-    display: none;
-}
-
-.active{
+.active {
     background-color: var(--activeTileColour);
 }
 
-.wrongTile{
+.wrongTile {
     background-color: var(--wrongTileColour);
+}
+
+#splashScreen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--backgroundColour);
+    gap: 2rem;
+    position: relative;
+}
+
+#splashScreen #introCanvas {
+    display: block;
+    max-width: 90vw;
+    opacity: 1;
+    transition: opacity 0.8s ease;
+}
+
+#splashScreen #introCanvas.fadeOut {
+    opacity: 0;
+}
+
+#splashStartContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+}
+
+#splashStartContent.visible {
+    opacity: 1;
+}
+
+#splashStartContent h1 {
+    color: var(--gameHeaderColour);
+    font-size: 3.6rem;
+    margin: 0;
+    text-align: center;
+}
+
+#splashStartContent p {
+    color: var(--gameHeaderColour);
+    font-size: 1.6rem;
+    margin: 0;
+    opacity: 0.75;
+    text-align: center;
+}
+
+#splashScreen #startBtn {
+    padding: 1rem 3rem;
+    font-size: 1.8rem;
+    font-family: inherit;
+    background-color: var(--tileColour);
+    color: var(--gameHeaderColour);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+#helpModal {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    padding: 1rem;
+}
+
+#helpModal:not(.helpModalHidden) {
+    display: flex;
+}
+
+.helpModalContent {
+    background-color: var(--backgroundColour);
+    color: var(--gameHeaderColour);
+    max-width: 40rem;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.3);
+}
+
+.helpModalContent h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.helpModalBody p {
+    margin: 0 0 1rem 0;
+}
+
+.helpModalContent #helpCloseBtn {
+    margin-top: 1rem;
+    padding: 0.5rem 1.5rem;
+    font-size: 1.6rem;
+    font-family: inherit;
+    background-color: var(--tileColour);
+    color: var(--gameHeaderColour);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+#resultsScreen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--backgroundColour);
+    color: var(--gameHeaderColour);
+    padding: 2rem;
+    text-align: center;
+}
+
+#resultsScreen h1 {
+    margin-top: 0;
+}
+
+#resultsScreen #gameHistoryList {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+#resultsScreen #tryAgainBtn {
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    font-size: 1.8rem;
+    font-family: inherit;
+    background-color: var(--tileColour);
+    color: var(--gameHeaderColour);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
 }
