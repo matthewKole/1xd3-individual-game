@@ -1,11 +1,10 @@
 /**
  * @file game.js
- * @author Your Name
- * @date January 1, 2026
+ * @author Matthew Kolesnik
+ * @date March 14, 2026
  * @description Model for the Visual Memory Game.
  *              The MemoryGame class tracks all game state including level,
  *              lives, grid contents, and pattern data.
- * @course CS 1XD3, McMaster University, 2026
  */
 
 class MemoryGame {

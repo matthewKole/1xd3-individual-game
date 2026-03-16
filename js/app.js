@@ -1,15 +1,14 @@
 /**
  * @file app.js
- * @author Your Name
- * @date January 1, 2026
+ * @author Matthew Kolesnik
+ * @date March 14, 2026
  * @description Controller for the Visual Memory Game.
  *              Handles all DOM manipulation, screen transitions,
  *              and wires up the MemoryGame model (game.js) to the view.
  *              All code runs inside a DOMContentLoaded event listener.
- * @course CS 1XD3, McMaster University, 2026
  */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
     let game = new MemoryGame();
     let playerCanClick = false;

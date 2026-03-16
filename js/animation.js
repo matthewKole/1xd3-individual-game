@@ -1,11 +1,10 @@
 /**
  * @file animation.js
- * @author Your Name
- * @date January 1, 2026
+ * @author Matthew Kolesnik
+ * @date March 14, 2026
  * @description Canvas splash screen animation for the Visual Memory Game.
  *              Draws an animated grid of flashing tiles, then calls onReady()
  *              to reveal the Start button.
- * @course CS 1XD3, McMaster University, 2026
  */
 
 /**
