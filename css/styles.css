@@ -13,6 +13,7 @@
     --gameHeaderColour: #FFFFFF;
     --wrongTileColour: #1a4a1a;
     --continueScreenColour: #ff474d;
+    --nextLevelScreenColour: #03812d;
 
     --grid-size: 3;
 }
@@ -142,13 +143,19 @@ body {
     width: 90%;
 }
 
+#splashStartContent img {
+    width: 100%;
+    max-width: 30rem;
+    height: auto;
+}
+
 #splashStartContent.visible {
     opacity: 1;
 }
 
 #splashStartContent h1 {
     color: var(--gameHeaderColour);
-    font-size: 3.6rem;
+    font-size: 6.7rem;
     margin: 0;
     text-align: center;
 }
@@ -156,7 +163,7 @@ body {
 #splashStartContent p {
     color: var(--gameHeaderColour);
     font-size: 1.6rem;
-    margin: 0;
+    margin: 1rem;
     opacity: 0.75;
     text-align: center;
 }

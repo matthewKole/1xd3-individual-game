@@ -38,11 +38,18 @@ document.addEventListener("DOMContentLoaded", function () {
                     const result = game.checkInput(x, y);
 
                     if (result === "correct") {
+
+                        let correctClickSound = new Audio("sounds/correct click.wav");
+                        correctClickSound.play();
+
                         tile.classList.add("active");
 
                     } else if (result === "wrong") {
                         tile.classList.add("wrongTile");
                         playerCanClick = false;
+
+                        let wrongClickSound = new Audio("sounds/incorrect click.wav");
+                        wrongClickSound.play();
 
                         const gameOver = game.loseLife();
                         updateHeader();
@@ -68,7 +75,17 @@ document.addEventListener("DOMContentLoaded", function () {
                         game.nextLevel();
                         updateHeader();
                         renderGrid();
-                        flashPattern(true);
+
+                        let nextLevel = new Audio("sounds/moving to next level.wav");
+                        nextLevel.play();
+
+                        const gameScreen = document.getElementById("game");
+                        gameScreen.style.backgroundColor = "var(--nextLevelScreenColour)";
+
+                        setTimeout(() => {
+                            gameScreen.style.backgroundColor = "var(--backgroundColour)";
+                            flashPattern(true);
+                        }, 850);
                     }
                 });
             }
@@ -84,6 +101,9 @@ document.addEventListener("DOMContentLoaded", function () {
     function flashPattern(shouldGenerate = true) {
         if (shouldGenerate) game.generatePattern();
         playerCanClick = false;
+
+        let showingPatternSound = new Audio("sounds/showing pattern.wav");
+        showingPatternSound.play();
 
         for (let i = 0; i < game.gridSize; i++) {
             for (let j = 0; j < game.gridSize; j++) {
