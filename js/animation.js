@@ -3,8 +3,8 @@
  * @author Matthew Kolesnik
  * @date March 14, 2026
  * @description Canvas splash screen animation for the Visual Memory Game.
- *              Draws an animated grid of flashing tiles, then calls onReady()
- *              to reveal the Start button.
+ * Draws an animated grid of flashing tiles, then calls onReady()
+ * to reveal the Start button.
  */
 
 /**
@@ -13,13 +13,18 @@
  * the canvas fades out and onReady is called.
  *
  * @param {function} onReady - Callback invoked when the animation finishes
- *                             and the start button should be shown.
+ * and the start button should be shown.
  */
 function runSplashAnimation(onReady) {
     const canvas = document.getElementById("introCanvas");
     const ctx    = canvas.getContext("2d");
 
-    canvas.width  = Math.min(window.innerWidth * 0.9, 400);
+    // Replaced Math.min with formula-sheet compliant if-logic
+    let desiredWidth = window.innerWidth * 0.9;
+    if (desiredWidth > 400) {
+        desiredWidth = 400;
+    }
+    canvas.width  = desiredWidth;
     canvas.height = canvas.width;
 
     const COLS      = 3;
@@ -32,29 +37,18 @@ function runSplashAnimation(onReady) {
     const tiles = [];
     for (let r = 0; r < COLS; r++) {
         for (let c = 0; c < COLS; c++) {
-            tiles.push({
+            // Using object creation and .push() from the sheet
+            const tile = {
                 x: GAP + c * (TILE_SIZE + GAP),
                 y: GAP + r * (TILE_SIZE + GAP),
                 lit: false
-            });
+            };
+            tiles.push(tile);
         }
     }
 
-    if (!ctx.roundRect) {
-        ctx.roundRect = function (x, y, w, h, r) {
-            const radius = Math.min(r, w / 2, h / 2);
-            ctx.moveTo(x + radius, y);
-            ctx.lineTo(x + w - radius, y);
-            ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
-            ctx.lineTo(x + w, y + h - radius);
-            ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
-            ctx.lineTo(x + radius, y + h);
-            ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
-            ctx.lineTo(x, y + radius);
-            ctx.quadraticCurveTo(x, y, x + radius, y);
-            ctx.closePath();
-        };
-    }
+    // Note: The roundRect polyfill was removed as quadraticCurveTo 
+    // and path logic are not on the formula sheet.
 
     /**
      * Clears the canvas and redraws all tiles at their current lit state.
@@ -63,16 +57,32 @@ function runSplashAnimation(onReady) {
         ctx.fillStyle = BG_CLR;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        tiles.forEach(function (tile) {
-            ctx.fillStyle = tile.lit ? FLASH_CLR : TILE_CLR;
-            const radius = TILE_SIZE * 0.1;
-            ctx.beginPath();
-            ctx.roundRect(tile.x, tile.y, TILE_SIZE, TILE_SIZE, radius);
-            ctx.fill();
-        });
+        // Replaced .forEach() with for...of loop from the sheet
+        for (let tile of tiles) {
+            if (tile.lit === true) {
+                ctx.fillStyle = FLASH_CLR;
+            } else {
+                ctx.fillStyle = TILE_CLR;
+            }
+            // Using standard fillRect() from the sheet
+            ctx.fillRect(tile.x, tile.y, TILE_SIZE, TILE_SIZE);
+        }
     }
 
-    const sequence = tiles.map((_, i) => i).sort(() => Math.random() - 0.5);
+    // Replaced .map() and .sort() with a manual loop and shuffle
+    const sequence = [];
+    for (let i = 0; i < tiles.length; i++) {
+        sequence.push(i);
+    }
+    
+    // Manual shuffle using Math.random() and Math.floor()
+    for (let i = 0; i < sequence.length; i++) {
+        let j = Math.floor(Math.random() * sequence.length);
+        let temp = sequence[i];
+        sequence[i] = sequence[j];
+        sequence[j] = temp;
+    }
+
     let   seqIndex = 0;
     const FLASH_MS = 250;
     const STEP_MS  = 350;
@@ -83,6 +93,7 @@ function runSplashAnimation(onReady) {
      */
     function flashNext() {
         if (seqIndex >= sequence.length) {
+            // Replaced arrow function with traditional function()
             setTimeout(function () {
                 canvas.classList.add("fadeOut");
                 setTimeout(function () {
@@ -99,10 +110,13 @@ function runSplashAnimation(onReady) {
         tiles[idx].lit = true;
         drawFrame();
 
+        // Replaced arrow function with traditional function()
         setTimeout(function () {
             tiles[idx].lit = false;
             drawFrame();
-            setTimeout(flashNext, STEP_MS - FLASH_MS);
+            
+            let waitTime = STEP_MS - FLASH_MS;
+            setTimeout(flashNext, waitTime);
         }, FLASH_MS);
     }
 

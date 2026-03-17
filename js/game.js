@@ -117,6 +117,8 @@ class MemoryGame {
         if (this.level <= 15) return 7;
         if (this.level <= 18) return 8;
         return 8;
+        //only goes up to level 18 because lets be real no one playing this would 
+        //genuinly reach a higher level than that unless they cheated
     }
 
     /**

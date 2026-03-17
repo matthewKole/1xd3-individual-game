@@ -3,8 +3,7 @@
     Date Created: March 14, 2026
     Stylesheet for the Visual Memory Game.
     Covers layout and theming for the splash screen, game screen,
-    help modal, and results screen. Designed for screens 480px wide or less but is also responsive for larger screen laptop etc.
-*/
+    help modal, and results screen.*/
 
 :root {
     --backgroundColour: #0F52BA;
@@ -189,7 +188,7 @@ body {
     padding: 1rem;
 }
 
-#helpModal:not(.helpModalHidden) {
+#helpModal:not(.helpModalHidden) { 
     display: flex;
 }
 
